@@ -51,6 +51,9 @@ A professional Web Scraper application built with the MERN stack that fetches tr
 
 ## ⚙️ Installation & Setup
 
+> [!CAUTION]
+> **Security Warning**: Never push your `.env` files to GitHub. They contain sensitive credentials (like MongoDB URIs and JWT Secrets). Both folders include a `.env.example` file as a template.
+
 ### **1. Backend Setup**
 1. Navigate to the backend folder:
    ```bash
@@ -60,15 +63,12 @@ A professional Web Scraper application built with the MERN stack that fetches tr
    ```bash
    npm install
    ```
-3. Configure Environment Variables:
-   Create a `config/config.env` file and add:
-   ```env
-   PORT = 8000
-   DB_LOCAL_URI = your_mongodb_connection_string
-   JWT_SECRET = your_secret_key
-   JWT_EXPIRES_TIME = 7d
-   SERVICE_URL = /api/web-scraper/v1
-   ```
+3. **Environment Configuration**:
+   - Locate the `web-screb-api/config/config.env.example` file.
+   - Create a new file named `config.env` in the same folder.
+   - Copy the contents from the example file and fill in your actual values:
+     - `DB_LOCAL_URI`: Your MongoDB connection string.
+     - `JWT_SECRET`: A secure random string for token encryption.
 4. Start the server:
    ```bash
    npm run dev
@@ -83,11 +83,10 @@ A professional Web Scraper application built with the MERN stack that fetches tr
    ```bash
    npm install
    ```
-3. Configure Environment Variables:
-   Create a `.env` file in the root of the frontend folder:
-   ```env
-   VITE_API_URL = http://localhost:8000/api/web-scraper/v1
-   ```
+3. **Environment Configuration**:
+   - Locate the `web-screb-frontend/.env.example` file.
+   - Create a new file named `.env` in the root of the frontend folder.
+   - Copy the contents and ensure the `VITE_API_URL` points to your running backend.
 4. Start the development server:
    ```bash
    npm run dev

@@ -1,10 +1,6 @@
 const dotenv = require("dotenv");
-dotenv.config({ path: "config/config.env" });
-const envFile =
-  process.env.NODE_ENV === "production"
-    ? "config/config.prod.env"
-    : "config/config.dev.env";
-dotenv.config({ path: envFile });
+// Load from root .env file
+dotenv.config();
 
 /* ============================================================
  * Server Config
@@ -32,8 +28,6 @@ const CLIENT_URL = process.env.CLIENT_URL;
  * ============================================================
  */
 const SERVICE_URL = process.env.SERVICE_URL;
-
-
 
 /* ============================================================
  * App Name
