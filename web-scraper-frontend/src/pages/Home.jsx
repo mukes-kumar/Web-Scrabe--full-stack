@@ -9,10 +9,9 @@ const Home = () => {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [bookmarks, setBookmarks] = useState([]);
   const [scraping, setScraping] = useState(false);
   
-  const { user } = useAuth();
+  const { user, bookmarks, updateBookmarksGlobally } = useAuth();
 
   const fetchStories = async () => {
     try {
@@ -23,16 +22,6 @@ const Home = () => {
       setError("Failed to load stories. Please try again later.");
     } finally {
       setLoading(false);
-    }
-  };
-
-  const fetchBookmarks = async () => {
-    if (!user) return;
-    try {
-      const { data } = await api.get("/stories/bookmarks");
-      setBookmarks(data.data.map(b => b._id));
-    } catch (err) {
-      console.error("Failed to load bookmarks");
     }
   };
 
@@ -51,8 +40,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchStories();
-    fetchBookmarks();
-  }, [user]);
+  }, []);
 
   const toggleBookmark = async (storyId) => {
     if (!user) {
@@ -63,17 +51,16 @@ const Home = () => {
     try {
       const { data } = await api.post(`/stories/${storyId}/bookmark`);
       
+      let newBookmarks;
       if (data.data.isBookmarked) {
         toast.success("Added to bookmarks");
+        newBookmarks = [...bookmarks, storyId];
       } else {
         toast.success("Removed from bookmarks");
+        newBookmarks = bookmarks.filter(id => id !== storyId);
       }
 
-      setBookmarks(prev => 
-        prev.includes(storyId) 
-          ? prev.filter(id => id !== storyId) 
-          : [...prev, storyId]
-      );
+      updateBookmarksGlobally(newBookmarks);
     } catch (err) {
       toast.error("Failed to update bookmark");
     }

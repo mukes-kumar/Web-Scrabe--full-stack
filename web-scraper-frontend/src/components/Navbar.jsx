@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { Newspaper, Bookmark, LogOut, LogIn, UserPlus, Menu, X } from "lucide-react";
 
 const Navbar = () => {
-  const { user, logout } = useAuth();
+  const { user, bookmarks, logout } = useAuth();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -54,8 +54,12 @@ const Navbar = () => {
           
           {user ? (
             <>
-              <Link to="/bookmarks" className="nav-link" style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <Bookmark size={18} /> Bookmarks
+              <Link to="/bookmarks" className="nav-link" style={{ display: "flex", alignItems: "center", gap: "8px", position: "relative" }}>
+                <Bookmark size={18} /> 
+                Bookmarks
+                {bookmarks.length > 0 && (
+                  <span className="badge">{bookmarks.length}</span>
+                )}
               </Link>
               <div style={{ display: "flex", alignItems: "center", gap: "12px", marginLeft: "10px" }}>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
@@ -117,6 +121,9 @@ const Navbar = () => {
             <>
               <Link to="/bookmarks" className="nav-link" onClick={() => setIsMenuOpen(false)} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                 <Bookmark size={20} /> Bookmarks
+                {bookmarks.length > 0 && (
+                  <span className="badge-mobile">{bookmarks.length}</span>
+                )}
               </Link>
               <button onClick={handleLogout} className="logout-btn" style={{ width: "100%", display: "flex", justifyContent: "center", gap: "10px", padding: "14px" }}>
                 <LogOut size={20} /> Logout
@@ -137,7 +144,7 @@ const Navbar = () => {
 
       <style>{`
         .glass-solid {
-          background: rgba(15, 23, 42, 0.98) !important; /* Increased opacity for better mobile visibility */
+          background: rgba(15, 23, 42, 0.98) !important;
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
         }
@@ -149,6 +156,25 @@ const Navbar = () => {
         }
         .nav-link:hover {
           color: var(--primary);
+        }
+        .badge {
+          background: var(--primary);
+          color: white;
+          font-size: 0.65rem;
+          font-weight: 700;
+          padding: 2px 6px;
+          border-radius: 10px;
+          margin-left: 4px;
+          vertical-align: top;
+        }
+        .badge-mobile {
+          background: var(--primary);
+          color: white;
+          font-size: 0.8rem;
+          font-weight: 700;
+          padding: 2px 10px;
+          border-radius: 20px;
+          margin-left: auto;
         }
         .logout-btn {
           background: rgba(239, 68, 68, 0.1);

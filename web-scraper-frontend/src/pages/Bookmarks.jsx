@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import api from "../services/api";
+import { useAuth } from "../context/AuthContext";
 import StoryCard from "../components/StoryCard";
 import { toast } from "react-hot-toast";
 import { Bookmark, RefreshCw, Archive } from "lucide-react";
@@ -7,12 +8,14 @@ import { Bookmark, RefreshCw, Archive } from "lucide-react";
 const Bookmarks = () => {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { bookmarks, updateBookmarksGlobally } = useAuth();
 
   const fetchBookmarks = async () => {
     try {
       setLoading(true);
       const { data } = await api.get("/stories/bookmarks");
       setStories(data.data);
+      updateBookmarksGlobally(data.data.map(s => s._id));
     } catch (err) {
       console.error("Failed to load bookmarks");
     } finally {
@@ -26,9 +29,14 @@ const Bookmarks = () => {
 
   const removeBookmark = async (storyId) => {
     try {
-      const { data } = await api.post(`/stories/${storyId}/bookmark`);
+      await api.post(`/stories/${storyId}/bookmark`);
       toast.success("Bookmark removed");
+      
+      // Update local state
       setStories(prev => prev.filter(s => s._id !== storyId));
+      
+      // Update global context
+      updateBookmarksGlobally(bookmarks.filter(id => id !== storyId));
     } catch (err) {
       toast.error("Failed to remove bookmark");
     }
