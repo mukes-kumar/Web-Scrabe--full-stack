@@ -68,6 +68,18 @@ class StoryService {
       isBookmarked: index === -1,
     };
   }
+
+  /**
+   * Get user bookmarked stories
+   */
+  async getUserBookmarks(userId) {
+    const user = await User.findById(userId).populate("bookmarks");
+    if (!user) {
+      throw new ErrorHandler("User not found", HTTP_STATUS_CODES.NOT_FOUND);
+    }
+
+    return user.bookmarks;
+  }
 }
 
 module.exports = new StoryService();

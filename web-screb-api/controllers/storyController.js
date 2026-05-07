@@ -62,3 +62,21 @@ exports.toggleBookmark = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * Get user bookmarks
+ */
+exports.getUserBookmarks = async (req, res, next) => {
+  try {
+    const responseData = await StoryServiceInstance.getUserBookmarks(req.user.id);
+
+    RESPONSE.handleSuccessResponse(
+      HTTP_STATUS_CODES.OK,
+      "User bookmarks fetched successfully",
+      responseData,
+      res
+    );
+  } catch (error) {
+    next(error);
+  }
+};

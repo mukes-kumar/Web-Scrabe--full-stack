@@ -10,6 +10,8 @@ const endpoints = {
   GET_STORIES: "/stories",
   GET_STORY_BY_ID: "/stories/:id",
   TOGGLE_BOOKMARK: "/stories/:id/bookmark",
+  GET_BOOKMARKS: "/stories/bookmarks",
 };
+
 
 module.exports = endpoints;
