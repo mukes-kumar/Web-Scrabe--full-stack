@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../services/api";
 import StoryCard from "../components/StoryCard";
+import { toast } from "react-hot-toast";
 import { Bookmark, RefreshCw, Archive } from "lucide-react";
 
 const Bookmarks = () => {
@@ -25,15 +26,16 @@ const Bookmarks = () => {
 
   const removeBookmark = async (storyId) => {
     try {
-      await api.post(`/stories/${storyId}/bookmark`);
+      const { data } = await api.post(`/stories/${storyId}/bookmark`);
+      toast.success("Bookmark removed");
       setStories(prev => prev.filter(s => s._id !== storyId));
     } catch (err) {
-      console.error("Failed to remove bookmark");
+      toast.error("Failed to remove bookmark");
     }
   };
 
   return (
-    <div className="container" style={{ padding: "40px 20px" }}>
+    <div className="container main-content">
       <div style={{ marginBottom: "40px" }}>
         <h1 style={{ fontSize: "2.5rem", fontWeight: "800", marginBottom: "10px", display: "flex", alignItems: "center", gap: "15px" }}>
           <Bookmark size={36} color="var(--primary)" fill="var(--primary)" />
@@ -43,7 +45,7 @@ const Bookmarks = () => {
       </div>
 
       {loading ? (
-        <div style={{ display: "flex", justifyContent: "center", padding: "100px" }}>
+        <div className="loader-container">
           <RefreshCw className="animate-spin" size={40} color="var(--primary)" />
         </div>
       ) : stories.length === 0 ? (
@@ -64,6 +66,24 @@ const Bookmarks = () => {
           ))}
         </div>
       )}
+
+      <style>{`
+        .main-content {
+          padding: 40px 20px;
+        }
+        .loader-container {
+          display: flex;
+          justify-content: center;
+          padding: 100px;
+        }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .animate-spin {
+          animation: spin 1s linear infinite;
+        }
+      `}</style>
     </div>
   );
 };

@@ -51,7 +51,7 @@ const Navbar = () => {
         {/* Desktop Links */}
         <div className="desktop-menu" style={{ display: "flex", alignItems: "center", gap: "25px" }}>
           <Link to="/" className="nav-link">Home</Link>
-
+          
           {user ? (
             <>
               <Link to="/bookmarks" className="nav-link" style={{ display: "flex", alignItems: "center", gap: "6px" }}>
@@ -91,7 +91,7 @@ const Navbar = () => {
 
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
-        <div className="mobile-menu glass" style={{
+        <div className="mobile-menu glass-solid" style={{
           position: "absolute",
           top: "70px",
           left: 0,
@@ -101,32 +101,33 @@ const Navbar = () => {
           flexDirection: "column",
           gap: "20px",
           borderTop: "1px solid var(--glass-border)",
-          borderRadius: "0 0 16px 16px"
+          borderRadius: "0 0 16px 16px",
+          boxShadow: "0 20px 40px rgba(0,0,0,0.5)"
         }}>
           {user && (
             <div style={{ padding: "0 0 15px 0", borderBottom: "1px solid var(--glass-border)" }}>
-              <div style={{ color: "white", fontSize: "1rem", fontWeight: "600" }}>{user.name}</div>
-              <div style={{ color: "var(--text-muted)", fontSize: "0.875rem" }}>{user.email}</div>
+              <div style={{ color: "white", fontSize: "1.1rem", fontWeight: "700" }}>{user.name}</div>
+              <div style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>{user.email}</div>
             </div>
           )}
-
+          
           <Link to="/" className="nav-link" onClick={() => setIsMenuOpen(false)}>Home</Link>
-
+          
           {user ? (
             <>
               <Link to="/bookmarks" className="nav-link" onClick={() => setIsMenuOpen(false)} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                 <Bookmark size={20} /> Bookmarks
               </Link>
-              <button onClick={handleLogout} className="logout-btn" style={{ width: "100%", display: "flex", justifyContent: "center", gap: "10px", padding: "12px" }}>
+              <button onClick={handleLogout} className="logout-btn" style={{ width: "100%", display: "flex", justifyContent: "center", gap: "10px", padding: "14px" }}>
                 <LogOut size={20} /> Logout
               </button>
             </>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              <Link to="/login" className="login-btn" onClick={() => setIsMenuOpen(false)} style={{ justifyContent: "center" }}>
+              <Link to="/login" className="login-btn" onClick={() => setIsMenuOpen(false)} style={{ justifyContent: "center", padding: "12px" }}>
                 <LogIn size={20} /> Login
               </Link>
-              <Link to="/register" className="register-btn" onClick={() => setIsMenuOpen(false)} style={{ justifyContent: "center" }}>
+              <Link to="/register" className="register-btn" onClick={() => setIsMenuOpen(false)} style={{ justifyContent: "center", padding: "12px" }}>
                 <UserPlus size={20} /> Join
               </Link>
             </div>
@@ -135,6 +136,11 @@ const Navbar = () => {
       )}
 
       <style>{`
+        .glass-solid {
+          background: rgba(15, 23, 42, 0.98) !important; /* Increased opacity for better mobile visibility */
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+        }
         .nav-link {
           color: var(--text-main);
           text-decoration: none;

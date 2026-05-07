@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import api from "../services/api";
+import { toast } from "react-hot-toast";
 
 const AuthContext = createContext();
 
@@ -23,11 +24,14 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(userData));
       setUser(userData);
+      toast.success(data.message || "Logged in successfully!");
       return { success: true };
     } catch (error) {
+      const message = error.response?.data?.message || "Login failed";
+      toast.error(message);
       return { 
         success: false, 
-        message: error.response?.data?.message || "Login failed" 
+        message 
       };
     }
   };
@@ -40,11 +44,14 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(userData));
       setUser(userData);
+      toast.success(data.message || "Registered successfully!");
       return { success: true };
     } catch (error) {
+      const message = error.response?.data?.message || "Registration failed";
+      toast.error(message);
       return { 
         success: false, 
-        message: error.response?.data?.message || "Registration failed" 
+        message 
       };
     }
   };
@@ -53,6 +60,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
+    toast.success("Logged out successfully");
   };
 
   return (

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import StoryCard from "../components/StoryCard";
+import { toast } from "react-hot-toast";
 import { RefreshCw, Zap, AlertCircle } from "lucide-react";
 
 const Home = () => {
@@ -38,10 +39,11 @@ const Home = () => {
   const handleScrape = async () => {
     try {
       setScraping(true);
-      await api.post("/scrape");
+      const { data } = await api.post("/scrape");
+      toast.success(data.message || "Scraping completed!");
       await fetchStories();
     } catch (err) {
-      alert("Scraping failed");
+      toast.error("Scraping failed");
     } finally {
       setScraping(false);
     }
@@ -54,19 +56,26 @@ const Home = () => {
 
   const toggleBookmark = async (storyId) => {
     if (!user) {
-      alert("Please login to bookmark stories");
+      toast.error("Please login to bookmark stories");
       return;
     }
 
     try {
-      await api.post(`/stories/${storyId}/bookmark`);
+      const { data } = await api.post(`/stories/${storyId}/bookmark`);
+      
+      if (data.data.isBookmarked) {
+        toast.success("Added to bookmarks");
+      } else {
+        toast.success("Removed from bookmarks");
+      }
+
       setBookmarks(prev => 
         prev.includes(storyId) 
           ? prev.filter(id => id !== storyId) 
           : [...prev, storyId]
       );
     } catch (err) {
-      console.error("Bookmark toggle failed");
+      toast.error("Failed to update bookmark");
     }
   };
 
