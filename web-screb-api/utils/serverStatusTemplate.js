@@ -11,7 +11,7 @@ const serverStatusTemplate = (port, env, appName = "Web Scraper API") => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>${appName} API - Server Status</title>
+        <title>${appName}  API - Server Status</title>
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
         <style>
             :root {
