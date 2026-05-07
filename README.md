@@ -37,15 +37,23 @@ A professional Web Scraper application built with the MERN stack that fetches tr
 
 ### **1. Home Page (Trending Stories)**
 <!-- ADD IMAGE HERE: path/to/home_page_screenshot.png -->
-![Home Page Placeholder](https://via.placeholder.com/800x450.png?text=Home+Page+with+Story+Cards)
+<img width="1599" height="814" alt="image" src="https://github.com/user-attachments/assets/dadfec49-d76c-4df6-9cd5-e439606d6086" />
+
 
 ### **2. Mobile Responsive Menu**
 <!-- ADD IMAGE HERE: path/to/mobile_menu_screenshot.png -->
-![Mobile Menu Placeholder](https://via.placeholder.com/300x600.png?text=Mobile+Responsive+Menu)
+<img width="320" height="537" alt="image" src="https://github.com/user-attachments/assets/1ba0fa89-a941-487f-b383-4df5187f2a99" />
+
 
 ### **3. Authentication (Login/Register)**
 <!-- ADD IMAGE HERE: path/to/auth_screenshot.png -->
-![Auth Page Placeholder](https://via.placeholder.com/800x450.png?text=Premium+Login+UI)
+<img width="1405" height="822" alt="image" src="https://github.com/user-attachments/assets/1f006946-3307-405c-8e8f-e5e5fdb0a901" />
+<img width="1009" height="789" alt="image" src="https://github.com/user-attachments/assets/dbd1cc1f-beaf-4440-808a-a71e5269c073" />
+
+
+### **4. Authorizations User (BookMarks See Own)**
+<img width="1041" height="776" alt="image" src="https://github.com/user-attachments/assets/2a916d7f-501d-4ff0-b6bc-ee16f25caa4c" />
+
 
 ---
 
