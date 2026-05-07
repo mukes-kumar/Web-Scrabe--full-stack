@@ -2,8 +2,10 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const errorMiddleware = require("./middlewares/error");
 
-const { PORT, NODE_ENV, APP_NAME } = require("./utils/envConstants");
+const auth = require("./routes/auth");
+const { SERVICE_URL, PORT, NODE_ENV, APP_NAME } = require("./utils/envConstants");
 const { serverStatusTemplate } = require("./utils/serverStatusTemplate");
 
 const corsOptions = {
@@ -29,6 +31,10 @@ app.get("/", (req, res) => {
   res.send(serverStatusTemplate(PORT, NODE_ENV, APP_NAME));
 });
 
+// Auth Routes
+app.use(SERVICE_URL, auth);
 
+// Error Middleware
+app.use(errorMiddleware);
 
 module.exports = app;
