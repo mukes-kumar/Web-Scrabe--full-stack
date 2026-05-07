@@ -10,16 +10,16 @@ class AuthService {
    * Register a new user and return token
    */
   async register(userData) {
-    const { email, password } = userData;
+    const { name, email, password } = userData;
 
     const userExists = await User.findOne({ email });
     if (userExists) {
       throw new ErrorHandler(ERROR_MESSAGES.USER_EXISTS, HTTP_STATUS_CODES.BAD_REQUEST);
     }
 
-    const user = await User.create({ email, password });
+    const user = await User.create({ name, email, password });
 
-    // Generate Token after registration
+    // Generate Token
     const token = jwt.sign({ id: user._id }, JWT_SECRET, {
       expiresIn: JWT_EXPIRES_TIME,
     });
@@ -30,6 +30,7 @@ class AuthService {
         token,
         user: {
           id: user._id,
+          name: user.name,
           email: user.email,
         },
       },
@@ -42,19 +43,16 @@ class AuthService {
   async login(credentials) {
     const { email, password } = credentials;
 
-    // Check if user exists and include password for comparison
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
       throw new ErrorHandler(ERROR_MESSAGES.INVALID_CREDENTIALS, HTTP_STATUS_CODES.UNAUTHORIZED);
     }
 
-    // Check if password is correct
     const isPasswordMatched = await user.comparePassword(password);
     if (!isPasswordMatched) {
       throw new ErrorHandler(ERROR_MESSAGES.INVALID_CREDENTIALS, HTTP_STATUS_CODES.UNAUTHORIZED);
     }
 
-    // Generate Token
     const token = jwt.sign({ id: user._id }, JWT_SECRET, {
       expiresIn: JWT_EXPIRES_TIME,
     });
@@ -65,6 +63,7 @@ class AuthService {
         token,
         user: {
           id: user._id,
+          name: user.name,
           email: user.email,
         },
       },
