@@ -10,11 +10,9 @@
     ]
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon server/server.js",
-    "dev": "cross-env NODE_ENV=development nodemon server/server.js",
-    "prod": "cross-env NODE_ENV=production nodemon server/server.js",
-    "seeder:dev": "cross-env NODE_ENV=development node utils/seeder.js",
-    "seeder:prod": "cross-env NODE_ENV=production node utils/seeder.js"
+    "start": "node server.js",
+    "dev": "cross-env NODE_ENV=development nodemon server.js",
+    "prod": "cross-env NODE_ENV=production node server.js"
   },
   "author": "curiomac",
   "license": "ISC",
