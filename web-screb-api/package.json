@@ -1,0 +1,52 @@
+{
+  "name": "web-scraper-api",
+  "version": "1.0.0",
+  "description": "web scraper api",
+  "main": "server.js",
+  "nodemonConfig": {
+    "ignore": [
+      "temp/**",
+      "*.pass/**"
+    ]
+  },
+  "scripts": {
+    "start": "cross-env NODE_ENV=development nodemon server/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon server/server.js",
+    "prod": "cross-env NODE_ENV=production nodemon server/server.js",
+    "seeder:dev": "cross-env NODE_ENV=development node utils/seeder.js",
+    "seeder:prod": "cross-env NODE_ENV=production node utils/seeder.js"
+  },
+  "author": "curiomac",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "bcrypt": "^6.0.0",
+    "cheerio": "^1.2.0",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-rate-limit": "^8.2.1",
+    "google-auth-library": "^10.4.1",
+    "googleapis": "^164.0.0",
+    "handlebars": "^4.7.8",
+    "joi": "^18.0.1",
+    "jsonwebtoken": "^9.0.0",
+    "moment": "^2.30.1",
+    "mongoose": "^6.9.1",
+    "multer": "^2.1.1",
+    "nodemailer": "^7.0.9",
+    "passkit-generator": "^3.5.2",
+    "randomstring": "^1.3.1",
+    "sha256": "^0.2.0",
+    "sharp": "^0.34.4",
+    "validator": "^13.15.15",
+    "web-push": "^3.6.7"
+  },
+  "devDependencies": {
+    "body-parser": "^1.20.3",
+    "chalk": "^4.1.2",
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.20"
+  }
+}
