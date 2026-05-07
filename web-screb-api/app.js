@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 const errorMiddleware = require("./middlewares/error");
 
 const auth = require("./routes/auth");
+const scraper = require("./routes/scraper");
+const stories = require("./routes/stories");
 const { SERVICE_URL, PORT, NODE_ENV, APP_NAME } = require("./utils/envConstants");
 const { serverStatusTemplate } = require("./utils/serverStatusTemplate");
 
@@ -33,6 +35,12 @@ app.get("/", (req, res) => {
 
 // Auth Routes
 app.use(SERVICE_URL, auth);
+
+// Scraper Routes
+app.use(SERVICE_URL, scraper);
+
+// Stories Routes
+app.use(SERVICE_URL, stories);
 
 // Error Middleware
 app.use(errorMiddleware);

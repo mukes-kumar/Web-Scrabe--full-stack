@@ -3,6 +3,7 @@ const connectDatabase = require("./db/database");
 const { chalk } = require("./utils/chalk");
 const { MESSAGES } = require("./utils/appConstants");
 const { PORT, NODE_ENV } = require("./utils/envConstants");
+const ScraperService = require("./services/ScraperService");
 
 // Connect to database and then start server 
 connectDatabase();
@@ -11,6 +12,13 @@ const server = app.listen(PORT, async () => {
   console.log(
     `${MESSAGES.PORT_LISTEN}${chalk.yellow(`${PORT} in ${NODE_ENV}`)}`
   );
+
+  // Run scraper automatically on server start
+  try {
+    await ScraperService.scrapeHackerNews();
+  } catch (error) {
+    console.log("Initial scrape failed:", error.message);
+  }
 });
 
 // Handle Unhandled Promise rejections
