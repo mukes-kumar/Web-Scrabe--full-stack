@@ -64,9 +64,9 @@ A professional Web Scraper application built with the MERN stack that fetches tr
    npm install
    ```
 3. **Environment Configuration**:
-   - Locate the `web-screb-api/config/config.env.example` file.
-   - Create a new file named `config.env` in the same folder.
-   - Copy the contents from the example file and fill in your actual values:
+   - Locate the `.env.example` file in the backend root.
+   - Create a new file named `.env` in the same folder.
+   - Copy the contents from the example and fill in your actual values:
      - `DB_LOCAL_URI`: Your MongoDB connection string.
      - `JWT_SECRET`: A secure random string for token encryption.
 4. Start the server:
@@ -84,8 +84,8 @@ A professional Web Scraper application built with the MERN stack that fetches tr
    npm install
    ```
 3. **Environment Configuration**:
-   - Locate the `web-screb-frontend/.env.example` file.
-   - Create a new file named `.env` in the root of the frontend folder.
+   - Locate the `.env.example` file in the frontend root.
+   - Create a new file named `.env` in the same folder.
    - Copy the contents and ensure the `VITE_API_URL` points to your running backend.
 4. Start the development server:
    ```bash
